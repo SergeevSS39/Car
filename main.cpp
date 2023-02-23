@@ -1,4 +1,4 @@
-#include <iostream>
+п»ї#include <iostream>
 #include <conio.h>
 #include <thread>
 #include <windows.h>
@@ -17,8 +17,8 @@ class Tank
 	static const int MIN_TANK_VOLUME = 20;
 	static const int MAX_TANK_VOLUME = 80;
 
-	const int VOLUME; //объём бака
-	double fuel_level; //уровень топлива
+	const int VOLUME; //РѕР±СЉС‘Рј Р±Р°РєР°
+	double fuel_level; //СѓСЂРѕРІРµРЅСЊ С‚РѕРїР»РёРІР°
 public:
 	int get_VOLUME() const
 	{
@@ -154,7 +154,7 @@ public:
 	void get_in()
 	{
 		driver_inside = true;
-		threads.panel_thread = std::thread(&Car::panel, this); //запускаем метод panel() в потоке panel_thread
+		threads.panel_thread = std::thread(&Car::panel, this); //Р·Р°РїСѓСЃРєР°РµРј РјРµС‚РѕРґ panel() РІ РїРѕС‚РѕРєРµ panel_thread
 	}
 	void get_out()
 	{
@@ -214,7 +214,7 @@ public:
 			switch (key)
 			{
 			case Enter: driver_inside ? get_out() : get_in(); break;
-			case 'I':case 'i': // Ignition - зажигание
+			case 'I':case 'i': // Ignition - Р·Р°Р¶РёРіР°РЅРёРµ
 				engine.started() ? stop_engine() : start_engine();
 				break;
 			case 'F':case'f':
@@ -241,7 +241,7 @@ public:
 	}
 	void engine_edle()
 	{
-		//холостой ход двигателя
+		//С…РѕР»РѕСЃС‚РѕР№ С…РѕРґ РґРІРёРіР°С‚РµР»СЏ
 		while (engine.started() && tank.give_fuel(engine.get_consumption_per_second(speed)))
 		{
 			std::this_thread::sleep_for(1s);
@@ -257,7 +257,7 @@ public:
 	}
 	void panel()
 	{
-		HANDLE hConsole = GetStdHandle(STD_OUTPUT_HANDLE); //обработчик окна консоли
+		HANDLE hConsole = GetStdHandle(STD_OUTPUT_HANDLE); //РѕР±СЂР°Р±РѕС‚С‡РёРє РѕРєРЅР° РєРѕРЅСЃРѕР»Рё
 		while(driver_inside)
 		{
 			system("CLS");
@@ -275,9 +275,9 @@ public:
 			cout << "Fuel level:\t" << tank.get_fuel_level() << " liters\t";
 			if (tank.get_fuel_level() < 5)
 			{
-				SetConsoleTextAttribute(hConsole, 0xCF); //0xCF: С - красный фон, F - белые буквы 
+				SetConsoleTextAttribute(hConsole, 0xCF); //0xCF: РЎ - РєСЂР°СЃРЅС‹Р№ С„РѕРЅ, F - Р±РµР»С‹Рµ Р±СѓРєРІС‹ 
 				cout << "LOW FUEL";
-				SetConsoleTextAttribute(hConsole, 0x07); //0x07: 0 - черный фон, 7 - серые буквы 
+				SetConsoleTextAttribute(hConsole, 0x07); //0x07: 0 - С‡РµСЂРЅС‹Р№ С„РѕРЅ, 7 - СЃРµСЂС‹Рµ Р±СѓРєРІС‹ 
 			}
 			cout << endl;
 			cout << "Engine " << (engine.started() ? "started" : "stopped") << "\n";
@@ -304,7 +304,7 @@ int main()
 	do
 	{
 		int fuel;
-		cout << "Введите объем топлива: "; cin >> fuel;
+		cout << "Р’РІРµРґРёС‚Рµ РѕР±СЉРµРј С‚РѕРїР»РёРІР°: "; cin >> fuel;
 		tank.fill(fuel);
 		tank.info();
 	} while (_getch() != 27);
